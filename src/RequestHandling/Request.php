@@ -14,6 +14,30 @@ class Request {
 	 *
 	 * The variable being tested for can be an array if you wish to find a nested value.
 	 *
+	 * Alias for get_var().
+	 *
+	 * @since 1.0.0
+	 *
+	 * @see   Arr::get()
+	 *
+	 * @param string|array $var
+	 * @param mixed        $default
+	 *
+	 * @return mixed
+	 */
+	public static function get_sanitized_var( $var, $default = null ) {
+		return static::get_var( $var, $default );
+	}
+
+	/**
+	 * Tests to see if the requested variable is set either as a post field or as a URL
+	 * param and returns the value if so.
+	 *
+	 * Post data takes priority over fields passed in the URL query. If the field is not
+	 * set then $default (null unless a different value is specified) will be returned.
+	 *
+	 * The variable being tested for can be an array if you wish to find a nested value.
+	 *
 	 * @since 1.0.0
 	 *
 	 * @see   Arr::get()
