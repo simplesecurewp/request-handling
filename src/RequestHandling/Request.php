@@ -30,6 +30,34 @@ class Request {
 	}
 
 	/**
+	 * Grab sanitized _SERVER variable.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @see   Arr::get()
+	 *
+	 * @param string|array $var
+	 * @param mixed        $default
+	 *
+	 * @return mixed
+	 */
+	public static function get_sanitized_server_var( $var, $default = null ) {
+		$data = [];
+
+		// Prevent a slew of warnings every time we call this.
+		if ( ! empty( $_SERVER ) ) {
+			$data[] = (array) $_SERVER;
+		}
+
+		if ( empty( $data ) ) {
+			return $default;
+		}
+
+		$unsafe = Arr::get_in_any( $data, $var, $default );
+		return static::sanitize_deep( $unsafe );
+	}
+
+	/**
 	 * Tests to see if the requested variable is set either as a post field or as a URL
 	 * param and returns the value if so.
 	 *
